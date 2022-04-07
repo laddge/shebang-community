@@ -2,7 +2,9 @@ import os
 import datetime
 import discord
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
 
 
 async def update_mc():
@@ -16,7 +18,7 @@ async def update_mc():
     channel = client.get_channel(int(os.getenv("CHANNEL_ID")))
     err = False
     try:
-        await channel.edit(name="メンバー数: {mc}")
+        await channel.edit(name=f"メンバー数: {mc}")
     except Exception as e:
         print(e)
         err = True
