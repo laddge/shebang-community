@@ -26,17 +26,7 @@ async def update_mc():
 
 
 @client.event
-async def on_raw_reaction_add(p):
-    await update_mc()
-
-
-@client.event
-async def on_raw_reaction_remove(p):
-    await update_mc()
-
-
-@client.event
-async def on_raw_reaction_clear_emoji(p):
+async def on_member_update(b, a):
     await update_mc()
 
 
