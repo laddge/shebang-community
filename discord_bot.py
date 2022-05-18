@@ -1,10 +1,36 @@
 import os
+import time
 import datetime
+import threading
 import discord
+import tweepy
 
 intents = discord.Intents.default()
 intents.members = True
 client = discord.Client(intents=intents)
+
+
+def tweet():
+    CK = os.getenv("TW_CK")
+    CS = os.getenv("TW_CS")
+    AT = os.getenv("TW_AT")
+    AS = os.getenv("TW_AS")
+    auth = tweepy.OAuthHandler(CK, CS)
+    auth.set_access_token(AT, AS)
+    api = tweepy.API(auth)
+    status = """プログラミングに興味はありませんか？
+    これから学習する人、知識を共有したい人などが集まれる場所があります。
+    初心者も大歓迎！みんなで一緒に楽しくプログラミングしましょう！
+    現在の{}
+    #プログラミング #Shebang
+    https://shebang.laddge.net/"""
+    while True:
+        channel = client.get_channel(int(os.getenv("CHANNEL_ID")))
+        api.update_status(status.format(channel.name))
+        time.sleep(15000)
+
+
+threading.Thread(target=tweet).start()
 
 
 async def update_mc():
