@@ -19,13 +19,17 @@ def tweet():
     auth.set_access_token(AT, AS)
     api = tweepy.API(auth)
     status = """プログラミングに興味はありませんか？
-    これから学習する人、知識を共有したい人などが集まれる場所があります。
-    初心者も大歓迎！みんなで一緒に楽しくプログラミングしましょう！
-    現在の{}
-    #プログラミング #Shebang
-    https://shebang.laddge.net/"""
+これから学習する人、知識を共有したい人などが集まれる場所があります。
+初心者も大歓迎！みんなで一緒に楽しくプログラミングしましょう！
+現在の{}
+#プログラミング #Shebang
+https://shebang.laddge.net/"""
     while True:
         channel = client.get_channel(int(os.getenv("CHANNEL_ID")))
+        if not channel:
+            print("channel not found")
+            time.sleep(1)
+            continue
         api.update_status(status.format(channel.name))
         time.sleep(15000)
 
