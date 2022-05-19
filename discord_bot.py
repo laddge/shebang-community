@@ -30,7 +30,14 @@ https://shebang.laddge.net/"""
             print("channel not found")
             time.sleep(1)
             continue
-        api.update_status(status.format(channel.name))
+        twcontent = status.format(channel.name)
+        while True:
+            try:
+                api.update_status(twcontent)
+            except Exception:
+                twcontent = twcontent[0] + "​" + twcontent[1:]
+            else:
+                break
         time.sleep(15000)
 
 
